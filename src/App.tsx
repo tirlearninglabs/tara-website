@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HeroLeft from './components/HeroLeft';
-import CanvasContainer from './components/CanvasContainer';
 import WhyAnswersSection from './components/WhyAnswersSection';
 import SocraticJourney from './components/SocraticJourney';
 import ActiveSessionMap from './components/ActiveSessionMap';

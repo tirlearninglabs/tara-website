@@ -2,13 +2,15 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Hero() {
-    const canvasRef = useRef(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let animationFrameId;
+
+if (!ctx) return;
+        let animationFrameId: number;
 
         const resizeCanvas = () => {
             canvas.width = canvas.offsetWidth * window.devicePixelRatio;
@@ -35,10 +37,22 @@ export default function Hero() {
             { id: 'growth', label: 'Growth', x: 0.60, y: 0.86, size: 14, color: '#F8FAFC' }
         ];
 
-        let particles = [];
+        type Particle = {
+            from: typeof nodes[number];
+            to: typeof nodes[number];
+            progress: number;
+            speed: number;
+            color: string;
+        };
+
+        let particles: Particle[] = [];
         let pulseRadius = 0;
 
-        const spawnParticle = (fromNode, toNode, speed = 0.005) => {
+        const spawnParticle = (
+            fromNode: typeof nodes[number],
+            toNode: typeof nodes[number],
+            speed = 0.005
+        ) => {
             particles.push({
                 from: fromNode,
                 to: toNode,
@@ -59,7 +73,7 @@ export default function Hero() {
 
             // Core glow pulsation
             pulseRadius = 20 + Math.sin(frame * 0.04) * 8;
-            const taraNode = nodes.find(n => n.id === 'tara');
+            const taraNode = nodes.find(n => n.id === 'tara')!;
             const tx = taraNode.x * w;
             const ty = taraNode.y * h;
 
